@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="CSDN迁移,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="版权声明：本文为博主原创文章，遵循 CC 4.0 by-sa 版权协议，转载请附上原文出处链接和本声明。  本文链接：https://blog.csdn.net/qq_22211217/article/details/80639492    一 问题出现情形1 集群启动后异常关闭，重启出错2 集群未正常启动二 查看zookeeper.out分析原因1cat zookeeper.out">
+<meta name="keywords" content="CSDN迁移">
+<meta property="og:type" content="article">
+<meta property="og:title" content="解决zookeeper集群重启 Error contacting service. It is probably not running 问题">
+<meta property="og:url" content="http://HandsomeMars.github.io/2018/06/10/解决zookeeper集群重启 Error contacting service. It is probably not running 问题/index.html">
+<meta property="og:site_name" content="yujiang-zheng&#39;s blog">
+<meta property="og:description" content="版权声明：本文为博主原创文章，遵循 CC 4.0 by-sa 版权协议，转载请附上原文出处链接和本声明。  本文链接：https://blog.csdn.net/qq_22211217/article/details/80639492    一 问题出现情形1 集群启动后异常关闭，重启出错2 集群未正常启动二 查看zookeeper.out分析原因1cat zookeeper.out">
+<meta property="og:locale" content="zh">
+<meta property="og:image" content="https://img-blog.csdn.net/20180610120435960?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/20180610120043137?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/20180610120102261?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/20180610120127959?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/20180610111517531?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/2018061011205094?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/2018061011250189?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/201806101149468?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:updated_time" content="2019-08-21T14:04:26.672Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="解决zookeeper集群重启 Error contacting service. It is probably not running 问题">
+<meta name="twitter:description" content="版权声明：本文为博主原创文章，遵循 CC 4.0 by-sa 版权协议，转载请附上原文出处链接和本声明。  本文链接：https://blog.csdn.net/qq_22211217/article/details/80639492    一 问题出现情形1 集群启动后异常关闭，重启出错2 集群未正常启动二 查看zookeeper.out分析原因1cat zookeeper.out">
+<meta name="twitter:image" content="https://img-blog.csdn.net/20180610120435960?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://HandsomeMars.github.io/2018/06/10/解决zookeeper集群重启 Error contacting service. It is probably not running 问题/">
+
+
+
+
+
+  <title>解决zookeeper集群重启 Error contacting service. It is probably not running 问题 | yujiang-zheng's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">yujiang-zheng's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://HandsomeMars.github.io/2018/06/10/解决zookeeper集群重启 Error contacting service. It is probably not running 问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yujiang zheng">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yujiang-zheng's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">解决zookeeper集群重启 Error contacting service. It is probably not running 问题</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-10T12:08:49+08:00">
+                2018-06-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p> <a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener"> </a> 版权声明：本文为博主原创文章，遵循<a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener"> CC 4.0 by-sa </a>版权协议，转载请附上原文出处链接和本声明。  本文链接：<a href="https://blog.csdn.net/qq_22211217/article/details/80639492" target="_blank" rel="noopener">https://blog.csdn.net/qq_22211217/article/details/80639492</a>   </p>
+<h2 id="一-问题出现情形"><a href="#一-问题出现情形" class="headerlink" title="一 问题出现情形"></a>一 问题出现情形</h2><h3 id="1-集群启动后异常关闭，重启出错"><a href="#1-集群启动后异常关闭，重启出错" class="headerlink" title="1 集群启动后异常关闭，重启出错"></a>1 集群启动后异常关闭，重启出错</h3><h3 id="2-集群未正常启动"><a href="#2-集群未正常启动" class="headerlink" title="2 集群未正常启动"></a>2 集群未正常启动</h3><h2 id="二-查看zookeeper-out分析原因"><a href="#二-查看zookeeper-out分析原因" class="headerlink" title="二 查看zookeeper.out分析原因"></a>二 查看zookeeper.out分析原因</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat zookeeper.out</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdn.net/20180610120435960?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt>  </p>
+<h3 id="1-网络问题。排查防火墙"><a href="#1-网络问题。排查防火墙" class="headerlink" title="1 网络问题。排查防火墙"></a>1 网络问题。排查防火墙</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">java.net.NoRouteToHostException: 没有到主机的路由 (Host unreachable)</span><br><span class="line">	at java.net.PlainSocketImpl.socketConnect(Native Method)</span><br><span class="line">	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)</span><br><span class="line">	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)</span><br><span class="line">	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)</span><br><span class="line">	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)</span><br><span class="line">	at java.net.Socket.connect(Socket.java:589)</span><br><span class="line">	at org.apache.zookeeper.server.quorum.QuorumCnxManager.connectOne(QuorumCnxManager.java:558)</span><br><span class="line">	at org.apache.zookeeper.server.quorum.QuorumCnxManager.connectAll(QuorumCnxManager.java:610)</span><br><span class="line">	at org.apache.zookeeper.server.quorum.FastLeaderElection.lookForLeader(FastLeaderElection.java:838)</span><br><span class="line">	at org.apache.zookeeper.server.quorum.QuorumPeer.run(QuorumPeer.java:957)</span><br></pre></td></tr></table></figure>
+
+<p>解决步骤：问题排查 7 -&gt;[2、6] -&gt;重启集群</p>
+<h3 id="2-初次启动。"><a href="#2-初次启动。" class="headerlink" title="2 初次启动。"></a>2 初次启动。</h3><p>解决步骤：问题排查1–&gt;2–&gt;3–&gt;4–&gt;5–&gt;7–&gt;重启集群</p>
+<p>备注：初次启动 个个环节都有可能有问题 如果有报错信息可以针对性解决</p>
+<h3 id="3-重新启动。"><a href="#3-重新启动。" class="headerlink" title="3 重新启动。"></a>3 重新启动。</h3><p>解决步骤：暂停集群–&gt;2–&gt;6–&gt;7–&gt;重启集群</p>
+<p>备注：重新启动主要是，节点配置信息问题以及防火墙问题。需要按顺序，暂停zookeeper，kill进程，删除节点信息，关闭防火墙，再次启动集群</p>
+<p><img src="https://img-blog.csdn.net/20180610120043137?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt>  </p>
+<p><img src="https://img-blog.csdn.net/20180610120102261?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt>  </p>
+<p><img src="https://img-blog.csdn.net/20180610120127959?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt>  </p>
+<h2 id="三-问题排查"><a href="#三-问题排查" class="headerlink" title="三 问题排查"></a>三 问题排查</h2><h3 id="1-java环境"><a href="#1-java环境" class="headerlink" title="1 java环境"></a>1 java环境</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -version</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-排查端口占用"><a href="#2-排查端口占用" class="headerlink" title="2 排查端口占用"></a>2 排查端口占用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -apn | grep 2181   #默认2181端口为服务端提供端口</span><br></pre></td></tr></table></figure>
+
+<p>备注：若集群未启动 则不应该有端口占用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill -9 pid                #pid为占用端口的进程id号</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-排除网卡问题"><a href="#3-排除网卡问题" class="headerlink" title="3 排除网卡问题"></a>3 排除网卡问题</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip addr</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdn.net/20180610111517531?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt></p>
+<p>备注：如果为物理地址则 重启网卡</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service network restart</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-排除网络问题"><a href="#4-排除网络问题" class="headerlink" title="4 排除网络问题"></a>4 排除网络问题</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ping ip               #ping其他节点主机 若zoo.cfg 使用域名则用域名</span><br></pre></td></tr></table></figure>
+
+<p>备注：无ping命令则安装 yum install iputils-ping 若有问题则 host映射问题  </p>
+<h3 id="5-排查节点配置信息"><a href="#5-排查节点配置信息" class="headerlink" title="5 排查节点配置信息"></a>5 排查节点配置信息</h3><p>dataDir 是否存在 myid文件内容与 service.x 中x对应</p>
+<p>例如：zk01 其对应service.x 则该目录下myid内容为1</p>
+<p><img src="https://img-blog.csdn.net/2018061011205094?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt>  </p>
+<h3 id="6-删除节点残留信息"><a href="#6-删除节点残留信息" class="headerlink" title="6 删除节点残留信息"></a>6 删除节点残留信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf version-2/ zookeeper_server.pid</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdn.net/2018061011250189?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt>  </p>
+<h3 id="7-防火墙拦截端口"><a href="#7-防火墙拦截端口" class="headerlink" title="7 防火墙拦截端口"></a>7 防火墙拦截端口</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl status firewalld.service</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdn.net/201806101149468?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop firewalld.service #关闭防火墙</span><br><span class="line">systemctl disable firewalld.service #禁止启动防火墙</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CSDN迁移/" rel="tag"># CSDN迁移</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/10/docker 容器中安装命令/" rel="next" title="docker 容器中安装命令">
+                <i class="fa fa-chevron-left"></i> docker 容器中安装命令
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/14/Nginx基本使用/" rel="prev" title="Nginx基本使用">
+                Nginx基本使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">yujiang zheng</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-问题出现情形"><span class="nav-number">1.</span> <span class="nav-text">一 问题出现情形</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-集群启动后异常关闭，重启出错"><span class="nav-number">1.1.</span> <span class="nav-text">1 集群启动后异常关闭，重启出错</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-集群未正常启动"><span class="nav-number">1.2.</span> <span class="nav-text">2 集群未正常启动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二-查看zookeeper-out分析原因"><span class="nav-number">2.</span> <span class="nav-text">二 查看zookeeper.out分析原因</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-网络问题。排查防火墙"><span class="nav-number">2.1.</span> <span class="nav-text">1 网络问题。排查防火墙</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-初次启动。"><span class="nav-number">2.2.</span> <span class="nav-text">2 初次启动。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-重新启动。"><span class="nav-number">2.3.</span> <span class="nav-text">3 重新启动。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三-问题排查"><span class="nav-number">3.</span> <span class="nav-text">三 问题排查</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-java环境"><span class="nav-number">3.1.</span> <span class="nav-text">1 java环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-排查端口占用"><span class="nav-number">3.2.</span> <span class="nav-text">2 排查端口占用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-排除网卡问题"><span class="nav-number">3.3.</span> <span class="nav-text">3 排除网卡问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-排除网络问题"><span class="nav-number">3.4.</span> <span class="nav-text">4 排除网络问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-排查节点配置信息"><span class="nav-number">3.5.</span> <span class="nav-text">5 排查节点配置信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-删除节点残留信息"><span class="nav-number">3.6.</span> <span class="nav-text">6 删除节点残留信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-防火墙拦截端口"><span class="nav-number">3.7.</span> <span class="nav-text">7 防火墙拦截端口</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yujiang zheng</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="CSDN迁移,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="版权声明：本文为博主原创文章，遵循 CC 4.0 by-sa 版权协议，转载请附上原文出处链接和本声明。  本文链接：https://blog.csdn.net/qq_22211217/article/details/94864766       目录  一、前提  二、搭建步骤  三、上传镜像  一、前提 1、docker环境（docker for window为例）  2、基本命令 12">
+<meta name="keywords" content="CSDN迁移">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker 快速搭建私有镜像仓库registry以及registryUI">
+<meta property="og:url" content="http://HandsomeMars.github.io/2019/07/06/docker 快速搭建私有镜像仓库registry以及registryUI/index.html">
+<meta property="og:site_name" content="yujiang-zheng&#39;s blog">
+<meta property="og:description" content="版权声明：本文为博主原创文章，遵循 CC 4.0 by-sa 版权协议，转载请附上原文出处链接和本声明。  本文链接：https://blog.csdn.net/qq_22211217/article/details/94864766       目录  一、前提  二、搭建步骤  三、上传镜像  一、前提 1、docker环境（docker for window为例）  2、基本命令 12">
+<meta property="og:locale" content="zh">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190706160407620.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190706160643848.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190706171830809.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190706161008149.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190706161458690.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190706171959340.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190706170256541.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190706170530384.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190706170650494.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190706171525576.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190706171226273.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190706171325648.png">
+<meta property="og:updated_time" content="2019-08-21T14:04:04.157Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="docker 快速搭建私有镜像仓库registry以及registryUI">
+<meta name="twitter:description" content="版权声明：本文为博主原创文章，遵循 CC 4.0 by-sa 版权协议，转载请附上原文出处链接和本声明。  本文链接：https://blog.csdn.net/qq_22211217/article/details/94864766       目录  一、前提  二、搭建步骤  三、上传镜像  一、前提 1、docker环境（docker for window为例）  2、基本命令 12">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20190706160407620.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3,size_16,color_FFFFFF,t_70">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://HandsomeMars.github.io/2019/07/06/docker 快速搭建私有镜像仓库registry以及registryUI/">
+
+
+
+
+
+  <title>docker 快速搭建私有镜像仓库registry以及registryUI | yujiang-zheng's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">yujiang-zheng's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://HandsomeMars.github.io/2019/07/06/docker 快速搭建私有镜像仓库registry以及registryUI/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yujiang zheng">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yujiang-zheng's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">docker 快速搭建私有镜像仓库registry以及registryUI</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-06T17:31:33+08:00">
+                2019-07-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p> <a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener"> </a> 版权声明：本文为博主原创文章，遵循<a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener"> CC 4.0 by-sa </a>版权协议，转载请附上原文出处链接和本声明。  本文链接：<a href="https://blog.csdn.net/qq_22211217/article/details/94864766" target="_blank" rel="noopener">https://blog.csdn.net/qq_22211217/article/details/94864766</a>   </p>
+<p>   <strong>目录</strong></p>
+<p> <a href="#%E4%B8%80%E3%80%81%E5%89%8D%E6%8F%90">一、前提</a></p>
+<p> <a href="#%E4%BA%8C%E3%80%81%E6%90%AD%E5%BB%BA%E6%AD%A5%E9%AA%A4">二、搭建步骤</a></p>
+<p> <a href="#%C2%A0%E4%B8%89%20%E4%B8%8A%E4%BC%A0%E9%95%9C%E5%83%8F">三、上传镜像</a></p>
+<hr>
+<h2 id="一、前提"><a href="#一、前提" class="headerlink" title="一、前提"></a>一、前提</h2><p> <strong><em>1、docker环境（docker for window为例）</em></strong></p>
+<p> <strong><em>2、基本命令</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> docker images                    #查看镜像</span><br><span class="line">docker pull [仓库ip:port/]镜像:tag #拉取镜像</span><br><span class="line">docker push [仓库ip:port/]镜像:tag #上传镜像</span><br><span class="line">docker rmi  镜像:tag              #删除镜像</span><br><span class="line">docker tag  镜像名 镜像名:tag     #重命名镜像</span><br><span class="line">docker run  镜像:tag              #运行镜像</span><br><span class="line">docker ps -a                     #docker 进程</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="二、搭建步骤"><a href="#二、搭建步骤" class="headerlink" title="二、搭建步骤"></a>二、搭建步骤</h2><p> <strong><em>1、安装registry</em></strong></p>
+<p> <em>step1：拉取registry</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull registry</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
+
+<p> <img src="https://img-blog.csdnimg.cn/20190706160407620.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3,size_16,color_FFFFFF,t_70" alt></p>
+<p> _step2：运行registry _</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 5000:5000 --name registry registry</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
+
+<p> <img src="https://img-blog.csdnimg.cn/20190706160643848.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://127.0.0.1:5000/v2/</span><br></pre></td></tr></table></figure>
+
+<p> <img src="https://img-blog.csdnimg.cn/20190706171830809.png" alt></p>
+<p> <em>** 2、安装registry-web**</em></p>
+<p> <em>step1：拉取registry-web</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull hyper/docker-registry-web</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
+
+
+
+<p> <img src="https://img-blog.csdnimg.cn/20190706161008149.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3,size_16,color_FFFFFF,t_70" alt></p>
+<p> <em>step2：运行registry-web</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 5001:8080 --name registry-web --link registry -e REGISTRY_URL=http://registry:5000/v2 -e REGISTRY_NAME=localhost:5000 hyper/docker-registry-web</span><br></pre></td></tr></table></figure>
+
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> ##命令注释</span><br><span class="line">docker run                                 ##运行</span><br><span class="line">-d                                         ##后台运行</span><br><span class="line">-p 5001:8080                               ##端口映射</span><br><span class="line">--name registry-web                        ##容器命名</span><br><span class="line">--link registry                            ##连接其他容器  加入registry到host</span><br><span class="line">-e REGISTRY_URL=http://registry:5000/v2    ##指定仓库地址</span><br><span class="line">-e REGISTRY_NAME=localhost:5000            ##仓库命名</span><br><span class="line">hyper/docker-registry-web                  ##被启动的镜像</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
+
+<p> <img src="https://img-blog.csdnimg.cn/20190706161458690.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://127.0.0.1:5001</span><br></pre></td></tr></table></figure>
+
+<p> <img src="https://img-blog.csdnimg.cn/20190706171959340.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3,size_16,color_FFFFFF,t_70" alt></p>
+<h2 id="三、上传镜像"><a href="#三、上传镜像" class="headerlink" title="三、上传镜像"></a>三、上传镜像</h2><p> <strong>_ 1、配置仓库（docker for window）_</strong></p>
+<p> <em>step1：docker for windows -》setting-》daemon-》添加insecure-registries-》[可选]registry mirrors</em></p>
+<p> <img src="https://img-blog.csdnimg.cn/20190706170256541.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3,size_16,color_FFFFFF,t_70" alt></p>
+<p> _step2：重启服务 _</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> docker start registry</span><br><span class="line">docker start registry-web</span><br></pre></td></tr></table></figure>
+
+<p> <em>** 2、上传镜像**</em></p>
+<p> <em>step1：下载测镜像并重命名</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull hello-world</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker tag hello-world localhost:5000/zyj-test:1.0</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> ##注意命名规范</span><br><span class="line">镜像仓库ip:port/镜像名:tag</span><br><span class="line"></span><br><span class="line">##否则push出错</span><br><span class="line">Error response from daemon: manifest for localhost:5000/uifd/ui-for-docker:latest not found</span><br></pre></td></tr></table></figure>
+
+
+
+<p> <img src="https://img-blog.csdnimg.cn/20190706170530384.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3,size_16,color_FFFFFF,t_70" alt></p>
+<p> _step2:上传镜像 _</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull localhost:5000/zyj/test:1.0</span><br></pre></td></tr></table></figure>
+
+<p> <img src="https://img-blog.csdnimg.cn/20190706170650494.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> 浏览器输入:</span><br><span class="line">http://localhost:5001/</span><br></pre></td></tr></table></figure>
+
+<p> <img src="https://img-blog.csdnimg.cn/20190706171525576.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3,size_16,color_FFFFFF,t_70" alt></p>
+<p> <em><strong>3、下载镜像</strong></em></p>
+<p> <em>step1:删除本地已有镜像</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rmi localhost:5000/zyj/test:1.0</span><br></pre></td></tr></table></figure>
+
+<p> <img src="https://img-blog.csdnimg.cn/20190706171226273.png" alt></p>
+<p> _step2：拉取本地仓库镜像 _</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull localhost:5000/zyj/test:1.0</span><br></pre></td></tr></table></figure>
+
+<p> <img src="https://img-blog.csdnimg.cn/20190706171325648.png" alt></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CSDN迁移/" rel="tag"># CSDN迁移</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/28/docker镜像导入导出(windows)/" rel="next" title="docker镜像导入导出(windows)">
+                <i class="fa fa-chevron-left"></i> docker镜像导入导出(windows)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/25/swagger离线文档导出html（maven插件版）/" rel="prev" title="swagger离线文档导出html（maven插件版）">
+                swagger离线文档导出html（maven插件版） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">yujiang zheng</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、前提"><span class="nav-number">1.</span> <span class="nav-text">一、前提</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、搭建步骤"><span class="nav-number">2.</span> <span class="nav-text">二、搭建步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、上传镜像"><span class="nav-number">3.</span> <span class="nav-text">三、上传镜像</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yujiang zheng</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

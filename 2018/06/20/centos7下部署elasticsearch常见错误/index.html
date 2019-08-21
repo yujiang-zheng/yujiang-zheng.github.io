@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="CSDN迁移,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="版权声明：本文为博主原创文章，遵循 CC 4.0 by-sa 版权协议，转载请附上原文出处链接和本声明。  本文链接：https://blog.csdn.net/qq_22211217/article/details/80740873       ###  一、Exception in thread “main” SettingsException[Failed to load settin">
+<meta name="keywords" content="CSDN迁移">
+<meta property="og:type" content="article">
+<meta property="og:title" content="centos7下部署elasticsearch常见错误">
+<meta property="og:url" content="http://HandsomeMars.github.io/2018/06/20/centos7下部署elasticsearch常见错误/index.html">
+<meta property="og:site_name" content="yujiang-zheng&#39;s blog">
+<meta property="og:description" content="版权声明：本文为博主原创文章，遵循 CC 4.0 by-sa 版权协议，转载请附上原文出处链接和本声明。  本文链接：https://blog.csdn.net/qq_22211217/article/details/80740873       ###  一、Exception in thread “main” SettingsException[Failed to load settin">
+<meta property="og:locale" content="zh">
+<meta property="og:image" content="https://img-blog.csdn.net/20180620043032175?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/20180620043124929?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/20180620044046140?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/20180620043353350?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/20180620043901577?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:updated_time" content="2019-08-21T14:04:25.514Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="centos7下部署elasticsearch常见错误">
+<meta name="twitter:description" content="版权声明：本文为博主原创文章，遵循 CC 4.0 by-sa 版权协议，转载请附上原文出处链接和本声明。  本文链接：https://blog.csdn.net/qq_22211217/article/details/80740873       ###  一、Exception in thread “main” SettingsException[Failed to load settin">
+<meta name="twitter:image" content="https://img-blog.csdn.net/20180620043032175?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://HandsomeMars.github.io/2018/06/20/centos7下部署elasticsearch常见错误/">
+
+
+
+
+
+  <title>centos7下部署elasticsearch常见错误 | yujiang-zheng's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">yujiang-zheng's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://HandsomeMars.github.io/2018/06/20/centos7下部署elasticsearch常见错误/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yujiang zheng">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yujiang-zheng's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">centos7下部署elasticsearch常见错误</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-20T04:17:03+08:00">
+                2018-06-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p> <a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener"> </a> 版权声明：本文为博主原创文章，遵循<a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener"> CC 4.0 by-sa </a>版权协议，转载请附上原文出处链接和本声明。  本文链接：<a href="https://blog.csdn.net/qq_22211217/article/details/80740873" target="_blank" rel="noopener">https://blog.csdn.net/qq_22211217/article/details/80740873</a>   </p>
+<p>   ### </p>
+<h3 id="一、Exception-in-thread-“main”-SettingsException-Failed-to-load-settings-from-elasticsearch-yml-nested-ElasticsearchParseException-malformed-expected-settings-to-start-with-‘object’-instead-was-VALUE-STRING"><a href="#一、Exception-in-thread-“main”-SettingsException-Failed-to-load-settings-from-elasticsearch-yml-nested-ElasticsearchParseException-malformed-expected-settings-to-start-with-‘object’-instead-was-VALUE-STRING" class="headerlink" title="一、Exception in thread “main” SettingsException[Failed to load settings from [elasticsearch.yml]]; nested: ElasticsearchParseException[malformed, expected settings to start with ‘object’, instead was [VALUE_STRING]];"></a>一、Exception in thread “main” SettingsException[Failed to load settings from [elasticsearch.yml]]; nested: ElasticsearchParseException[malformed, expected settings to start with ‘object’, instead was [VALUE_STRING]];</h3><h4 id="原因：elasticsearch-yml文件错误"><a href="#原因：elasticsearch-yml文件错误" class="headerlink" title="原因：elasticsearch.yml文件错误"></a>原因：elasticsearch.yml文件错误</h4><h4 id="解决：参数与参数值等号间需要空格"><a href="#解决：参数与参数值等号间需要空格" class="headerlink" title="解决：参数与参数值等号间需要空格"></a>解决：参数与参数值等号间需要空格</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">node.name =&quot;node&quot;  ##错误</span><br><span class="line">node.name = &quot;node&quot; ##正确</span><br></pre></td></tr></table></figure>
+
+<h3 id="二、org-elasticsearch-bootstrap-StartupException-java-lang-RuntimeException-can-not-run-elasticsearch-as-root"><a href="#二、org-elasticsearch-bootstrap-StartupException-java-lang-RuntimeException-can-not-run-elasticsearch-as-root" class="headerlink" title="二、org.elasticsearch.bootstrap.StartupException: java.lang.RuntimeException: can not run elasticsearch as root"></a>二、org.elasticsearch.bootstrap.StartupException: java.lang.RuntimeException: can not run elasticsearch as root</h3><p>详细错误：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">OpenJDK 64-Bit Server VM warning: If the number of processors is expected to increase from one, then you should configure the number of parallel GC threads a</span><br><span class="line">[2018-06-20T02:19:58,978][WARN ][o.e.b.ElasticsearchUncaughtExceptionHandler] [] uncaught exception in thread [main]</span><br><span class="line">org.elasticsearch.bootstrap.StartupException: java.lang.RuntimeException: can not run elasticsearch as root</span><br><span class="line">	at org.elasticsearch.bootstrap.Elasticsearch.init(Elasticsearch.java:140) ~[elasticsearch-6.3.0.jar:6.3.0]</span><br><span class="line">	at org.elasticsearch.bootstrap.Elasticsearch.execute(Elasticsearch.java:127) ~[elasticsearch-6.3.0.jar:6.3.0]</span><br><span class="line">	at org.elasticsearch.cli.EnvironmentAwareCommand.execute(EnvironmentAwareCommand.java:86) ~[elasticsearch-6.3.0.jar:6.3.0]</span><br><span class="line">	at org.elasticsearch.cli.Command.mainWithoutErrorHandling(Command.java:124) ~[elasticsearch-cli-6.3.0.jar:6.3.0]</span><br><span class="line">	at org.elasticsearch.cli.Command.main(Command.java:90) ~[elasticsearch-cli-6.3.0.jar:6.3.0]</span><br><span class="line">	at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:93) ~[elasticsearch-6.3.0.jar:6.3.0]</span><br><span class="line">	at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:86) ~[elasticsearch-6.3.0.jar:6.3.0]</span><br><span class="line">Caused by: java.lang.RuntimeException: can not run elasticsearch as root</span><br><span class="line">	at org.elasticsearch.bootstrap.Bootstrap.initializeNatives(Bootstrap.java:104) ~[elasticsearch-6.3.0.jar:6.3.0]</span><br><span class="line">	at org.elasticsearch.bootstrap.Bootstrap.setup(Bootstrap.java:171) ~[elasticsearch-6.3.0.jar:6.3.0]</span><br><span class="line">	at org.elasticsearch.bootstrap.Bootstrap.init(Bootstrap.java:326) ~[elasticsearch-6.3.0.jar:6.3.0]</span><br><span class="line">	at org.elasticsearch.bootstrap.Elasticsearch.init(Elasticsearch.java:136) ~[elasticsearch-6.3.0.jar:6.3.0]</span><br><span class="line">	... 6 more</span><br></pre></td></tr></table></figure>
+
+<h4 id="原因：处于对root用户的安全保护，需要使用其他用户组进行授权启动"><a href="#原因：处于对root用户的安全保护，需要使用其他用户组进行授权启动" class="headerlink" title="原因：处于对root用户的安全保护，需要使用其他用户组进行授权启动"></a>原因：处于对root用户的安全保护，需要使用其他用户组进行授权启动</h4><h4 id="解决："><a href="#解决：" class="headerlink" title="解决："></a>解决：</h4><h5 id="step1-用户组进行授权启动"><a href="#step1-用户组进行授权启动" class="headerlink" title="step1:用户组进行授权启动"></a>step1:用户组进行授权启动</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">groupadd elsearch           </span><br><span class="line">useradd elsearch -g elsearch -p elasticsearch</span><br><span class="line">chown -R elsearch:elsearch  elasticsearch-6.3.0</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">备注： 添加用户组 elsearch  </span><br><span class="line">      添加用户 elsearch 密码为 elasticsearch 到用户组 elsearch</span><br><span class="line">      将elsearch安装目录授权给 用户组：用户  即 elsearch：elsearch</span><br></pre></td></tr></table></figure>
+
+<h5 id="step2-重新启动"><a href="#step2-重新启动" class="headerlink" title="step2: 重新启动"></a><strong>step2: 重新启动</strong></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">su elsearch</span><br><span class="line">/elasticsearch-6.3.0/bin/elasticsearch</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">备注：切换 elsearch 用户</span><br><span class="line">      重新启动</span><br></pre></td></tr></table></figure>
+
+<p>### </p>
+<p>### </p>
+<h3 id="三、OpenJDK-64-Bit-Server-VM-warning-INFO-os-commit-memory-0x0000000085330000-2060255232-0-failed-error-’Cannot-a-…’-errno-12"><a href="#三、OpenJDK-64-Bit-Server-VM-warning-INFO-os-commit-memory-0x0000000085330000-2060255232-0-failed-error-’Cannot-a-…’-errno-12" class="headerlink" title="三、OpenJDK 64-Bit Server VM warning: INFO: os::commit_memory(0x0000000085330000, 2060255232, 0) failed; error=’Cannot a …’(errno=12);"></a>三、OpenJDK 64-Bit Server VM warning: INFO: os::commit_memory(0x0000000085330000, 2060255232, 0) failed; error=’Cannot a …’(errno=12);</h3><p>### </p>
+<h4 id="原因：jvm要分配最大内存超出系统内存"><a href="#原因：jvm要分配最大内存超出系统内存" class="headerlink" title="原因：jvm要分配最大内存超出系统内存"></a>原因：jvm要分配最大内存超出系统内存</h4><p>### </p>
+<h4 id="解决：-1"><a href="#解决：-1" class="headerlink" title="解决："></a>解决：</h4><h5 id="step1：适当调整指定jvm内存"><a href="#step1：适当调整指定jvm内存" class="headerlink" title="step1：适当调整指定jvm内存"></a>step1：适当调整指定jvm内存</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /home/elasticsearch-6.3.0/config/jvm.options</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">备注：编辑elasticsearch jvm配置文件 修改如下 esc+：wq保存退出</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">## JVM configuration</span><br><span class="line"></span><br><span class="line">################################################################</span><br><span class="line">## IMPORTANT: JVM heap size</span><br><span class="line">################################################################</span><br><span class="line">##</span><br><span class="line">## You should always set the min and max JVM heap</span><br><span class="line">## size to the same value. For example, to set</span><br><span class="line">## the heap to 4 GB, set:</span><br><span class="line">##</span><br><span class="line">## -Xms4g</span><br><span class="line">## -Xmx4g</span><br><span class="line">##</span><br><span class="line">## See https://www.elastic.co/guide/en/elasticsearch/reference/current/heap-size.html</span><br><span class="line">## for more information</span><br><span class="line">##</span><br><span class="line">################################################################</span><br><span class="line"></span><br><span class="line"># Xms represents the initial size of total heap space</span><br><span class="line"># Xmx represents the maximum size of total heap space</span><br><span class="line"></span><br><span class="line">-Xms512m</span><br><span class="line">-Xmx512m</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">备注：由于虚拟机内存制定1g，所以适当降低jvm内存指定</span><br></pre></td></tr></table></figure>
+
+<h5 id="step2-重启"><a href="#step2-重启" class="headerlink" title="step2:重启"></a>step2:重启</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">su elsearch</span><br><span class="line">/elasticsearch-6.3.0/bin/elasticsearch</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="四、ERROR-3-bootstrap-checks-failed"><a href="#四、ERROR-3-bootstrap-checks-failed" class="headerlink" title="四、ERROR: [3] bootstrap checks failed"></a>四、ERROR: [3] bootstrap checks failed</h3><p>详细错误：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[2018-06-20T02:35:47,152][INFO ][o.e.b.BootstrapChecks    ] [SUcoFrg] bound or publishing to a non-loopback address, enforcing bootstrap checks</span><br><span class="line">ERROR: [3] bootstrap checks failed</span><br><span class="line">[1]: max file descriptors [4096] for elasticsearch process is too low, increase to at least [65536]</span><br><span class="line">[2]: max number of threads [3802] for user [elsearch] is too low, increase to at least [4096]</span><br><span class="line">[3]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]</span><br><span class="line">[2018-06-20T02:35:47,170][INFO ][o.e.n.Node               ] [SUcoFrg] stopping ...</span><br><span class="line">[2018-06-20T02:35:47,316][INFO ][o.e.n.Node               ] [SUcoFrg] stopped</span><br><span class="line">[2018-06-20T02:35:47,316][INFO ][o.e.n.Node               ] [SUcoFrg] closing ...</span><br><span class="line">[2018-06-20T02:35:47,336][INFO ][o.e.n.Node               ] [SUcoFrg] closed</span><br></pre></td></tr></table></figure>
+
+<h4 id="原因：虚拟机限制用户的执行内存"><a href="#原因：虚拟机限制用户的执行内存" class="headerlink" title="原因：虚拟机限制用户的执行内存"></a>原因：虚拟机限制用户的执行内存</h4><h4 id="解决：-2"><a href="#解决：-2" class="headerlink" title="解决："></a>解决：</h4><p>[1]: max file descriptors [4096] for elasticsearch process is too low, increase to at least [65536]</p>
+<p>[2]: max number of threads [3802] for user [elsearch] is too low, increase to at least [4096]  </p>
+<h5 id="step1-修改安全限制配置文件"><a href="#step1-修改安全限制配置文件" class="headerlink" title="step1:修改安全限制配置文件"></a>step1:修改安全限制配置文件</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">su root </span><br><span class="line">vi /etc/security/limits.conf</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">备注：使用最高权限 修改安全配置 在文件末尾加入</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># End of file</span><br><span class="line">elsearch       hard        nofile        65536 </span><br><span class="line">elsearch       soft        nofile        65536</span><br><span class="line">*               soft       nproc         4096</span><br><span class="line">*               hard       nproc         4096</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">备注： elsearch为用户名 可以是使用*进行通配  </span><br><span class="line">nofile 最大打开文件数目</span><br><span class="line">nproc 最大打开线程数目</span><br></pre></td></tr></table></figure>
+
+
+<p>[3]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]</p>
+<h5 id="step2-修改系统配置文件"><a href="#step2-修改系统配置文件" class="headerlink" title="step2:修改系统配置文件"></a>step2:修改系统配置文件</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/sysctl.conf</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">备注：行末加上vm.max_map_count = 655360 ，esc +：wq保存退出</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># sysctl settings are defined through files in</span><br><span class="line"># /usr/lib/sysctl.d/, /run/sysctl.d/, and /etc/sysctl.d/.</span><br><span class="line">#</span><br><span class="line"># Vendors settings live in /usr/lib/sysctl.d/.</span><br><span class="line"># To override a whole file, create a new file with the same in</span><br><span class="line"># /etc/sysctl.d/ and put new settings there. To override</span><br><span class="line"># only specific settings, add a file with a lexically later</span><br><span class="line"># name in /etc/sysctl.d/ and put new settings there.</span><br><span class="line">#</span><br><span class="line"># For more information, see sysctl.conf(5) and sysctl.d(5).</span><br><span class="line">vm.max_map_count = 655360</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">备注：vm.max_map_count = 655360 值大于错误提示值</span><br></pre></td></tr></table></figure>
+
+<h5 id="step3-重启"><a href="#step3-重启" class="headerlink" title="step3:重启"></a>step3:重启</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">su elsearch</span><br><span class="line">/elasticsearch-6.3.0/bin/elasticsearch</span><br></pre></td></tr></table></figure>
+
+<p>### </p>
+<h3 id="五、org-elasticsearch-bootstrap-StartupException-java-lang-IllegalStateException-failed-to-obtain-node-locks-tried-home-elasticsearch-6-3-0-data-elasticsearch-with-lock-id-0-maybe-these-locations-are-not-writable-or-multiple-nodes-were-started-without-increasing-node-max-local-storage-nodes-was-1"><a href="#五、org-elasticsearch-bootstrap-StartupException-java-lang-IllegalStateException-failed-to-obtain-node-locks-tried-home-elasticsearch-6-3-0-data-elasticsearch-with-lock-id-0-maybe-these-locations-are-not-writable-or-multiple-nodes-were-started-without-increasing-node-max-local-storage-nodes-was-1" class="headerlink" title="五、org.elasticsearch.bootstrap.StartupException: java.lang.IllegalStateException: failed to obtain node locks, tried [[/home/elasticsearch-6.3.0/data/elasticsearch]] with lock id [0]; maybe these locations are not writable or multiple nodes were started without increasing [node.max_local_storage_nodes] (was [1])?"></a>五、org.elasticsearch.bootstrap.StartupException: java.lang.IllegalStateException: failed to obtain node locks, tried [[/home/elasticsearch-6.3.0/data/elasticsearch]] with lock id [0]; maybe these locations are not writable or multiple nodes were started without increasing [node.max_local_storage_nodes] (was [1])?</h3><p>详细报错：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[2018-06-20T04:23:25,003][WARN ][o.e.b.ElasticsearchUncaughtExceptionHandler] [] uncaught exception in thread [main]</span><br><span class="line">org.elasticsearch.bootstrap.StartupException: java.lang.IllegalStateException: failed to obtain node locks, tried [[/home/elasticsearch-6.3.0/data/elasticsearch]] with lock id [0]; maybe these locations are not writable or multiple nodes were started without increasing [node.max_local_storage_nodes] (was [1])?</span><br><span class="line">	at org.elasticsearch.bootstrap.Elasticsearch.init(Elasticsearch.java:140) ~[elasticsearch-6.3.0.jar:6.3.0]</span><br><span class="line">	at org.elasticsearch.bootstrap.Elasticsearch.execute(Elasticsearch.java:127) ~[elasticsearch-6.3.0.jar:6.3.0]</span><br><span class="line">	at org.elasticsearch.cli.EnvironmentAwareCommand.execute(EnvironmentAwareCommand.java:86) ~[elasticsearch-6.3.0.jar:6.3.0]</span><br><span class="line">	at org.elasticsearch.cli.Command.mainWithoutErrorHandling(Command.java:124) ~[elasticsearch-cli-6.3.0.jar:6.3.0]</span><br><span class="line">	at org.elasticsearch.cli.Command.main(Command.java:90) ~[elasticsearch-cli-6.3.0.jar:6.3.0]</span><br><span class="line">	at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:93) ~[elasticsearch-6.3.0.jar:6.3.0]</span><br><span class="line">	at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:86) ~[elasticsearch-6.3.0.jar:6.3.0]</span><br><span class="line">Caused by: java.lang.IllegalStateException: failed to obtain node locks, tried [[/home/elasticsearch-6.3.0/data/elasticsearch]] with lock id [0]; maybe these locations are not writable or multiple nodes were started without increasing [node.max_local_storage_nodes] (was [1])?</span><br><span class="line">	at org.elasticsearch.env.NodeEnvironment.&lt;init&gt;(NodeEnvironment.java:243) ~[elasticsearch-6.3.0.jar:6.3.0]</span><br><span class="line">	at org.elasticsearch.node.Node.&lt;init&gt;(Node.java:270) ~[elasticsearch-6.3.0.jar:6.3.0]</span><br><span class="line">	at org.elasticsearch.node.Node.&lt;init&gt;(Node.java:252) ~[elasticsearch-6.3.0.jar:6.3.0]</span><br><span class="line">	at org.elasticsearch.bootstrap.Bootstrap$5.&lt;init&gt;(Bootstrap.java:213) ~[elasticsearch-6.3.0.jar:6.3.0]</span><br><span class="line">	at org.elasticsearch.bootstrap.Bootstrap.setup(Bootstrap.java:213) ~[elasticsearch-6.3.0.jar:6.3.0]</span><br><span class="line">	at org.elasticsearch.bootstrap.Bootstrap.init(Bootstrap.java:326) ~[elasticsearch-6.3.0.jar:6.3.0]</span><br><span class="line">	at org.elasticsearch.bootstrap.Elasticsearch.init(Elasticsearch.java:136) ~[elasticsearch-6.3.0.jar:6.3.0]</span><br><span class="line">	... 6 more</span><br></pre></td></tr></table></figure>
+
+<h4 id="原因：线程占用"><a href="#原因：线程占用" class="headerlink" title="原因：线程占用"></a>原因：线程占用</h4><h4 id="解决：重新启动"><a href="#解决：重新启动" class="headerlink" title="解决：重新启动"></a>解决：重新启动</h4><h5 id="step1-杀死elasticsearch线程"><a href="#step1-杀死elasticsearch线程" class="headerlink" title="step1:杀死elasticsearch线程"></a>step1:杀死elasticsearch线程</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep elastic</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdn.net/20180620043032175?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill -9 2002</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdn.net/20180620043124929?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt></p>
+<h5 id="step2-重启-1"><a href="#step2-重启-1" class="headerlink" title="step2: 重启"></a>step2: 重启</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">su elsearch</span><br><span class="line">/elasticsearch-6.3.0/bin/elasticsearch</span><br></pre></td></tr></table></figure>
+
+<p>### </p>
+<h3 id="六、验证"><a href="#六、验证" class="headerlink" title="六、验证"></a>六、验证</h3><h4 id="1、后台启动"><a href="#1、后台启动" class="headerlink" title="1、后台启动"></a>1、后台启动</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/home/elasticsearch-6.3.0/bin/elasticsearch -d</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdn.net/20180620044046140?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt>  </p>
+<h4 id="2、curl验证"><a href="#2、curl验证" class="headerlink" title="2、curl验证"></a>2、curl验证</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://zk01:9200</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdn.net/20180620043353350?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt>  </p>
+<h4 id="3、网站验证"><a href="#3、网站验证" class="headerlink" title="3、网站验证"></a>3、网站验证</h4><p><img src="https://img-blog.csdn.net/20180620043901577?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CSDN迁移/" rel="tag"># CSDN迁移</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/14/Nginx基本使用/" rel="next" title="Nginx基本使用">
+                <i class="fa fa-chevron-left"></i> Nginx基本使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/16/docker搭建nexus（maven 私服）/" rel="prev" title="docker搭建nexus（maven 私服）">
+                docker搭建nexus（maven 私服） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">yujiang zheng</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、Exception-in-thread-“main”-SettingsException-Failed-to-load-settings-from-elasticsearch-yml-nested-ElasticsearchParseException-malformed-expected-settings-to-start-with-‘object’-instead-was-VALUE-STRING"><span class="nav-number">1.</span> <span class="nav-text">一、Exception in thread “main” SettingsException[Failed to load settings from [elasticsearch.yml]]; nested: ElasticsearchParseException[malformed, expected settings to start with ‘object’, instead was [VALUE_STRING]];</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原因：elasticsearch-yml文件错误"><span class="nav-number">1.1.</span> <span class="nav-text">原因：elasticsearch.yml文件错误</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决：参数与参数值等号间需要空格"><span class="nav-number">1.2.</span> <span class="nav-text">解决：参数与参数值等号间需要空格</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、org-elasticsearch-bootstrap-StartupException-java-lang-RuntimeException-can-not-run-elasticsearch-as-root"><span class="nav-number">2.</span> <span class="nav-text">二、org.elasticsearch.bootstrap.StartupException: java.lang.RuntimeException: can not run elasticsearch as root</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原因：处于对root用户的安全保护，需要使用其他用户组进行授权启动"><span class="nav-number">2.1.</span> <span class="nav-text">原因：处于对root用户的安全保护，需要使用其他用户组进行授权启动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决："><span class="nav-number">2.2.</span> <span class="nav-text">解决：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#step1-用户组进行授权启动"><span class="nav-number">2.2.1.</span> <span class="nav-text">step1:用户组进行授权启动</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#step2-重新启动"><span class="nav-number">2.2.2.</span> <span class="nav-text">step2: 重新启动</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、OpenJDK-64-Bit-Server-VM-warning-INFO-os-commit-memory-0x0000000085330000-2060255232-0-failed-error-’Cannot-a-…’-errno-12"><span class="nav-number">3.</span> <span class="nav-text">三、OpenJDK 64-Bit Server VM warning: INFO: os::commit_memory(0x0000000085330000, 2060255232, 0) failed; error=’Cannot a …’(errno=12);</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原因：jvm要分配最大内存超出系统内存"><span class="nav-number">3.1.</span> <span class="nav-text">原因：jvm要分配最大内存超出系统内存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决：-1"><span class="nav-number">3.2.</span> <span class="nav-text">解决：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#step1：适当调整指定jvm内存"><span class="nav-number">3.2.1.</span> <span class="nav-text">step1：适当调整指定jvm内存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#step2-重启"><span class="nav-number">3.2.2.</span> <span class="nav-text">step2:重启</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、ERROR-3-bootstrap-checks-failed"><span class="nav-number">4.</span> <span class="nav-text">四、ERROR: [3] bootstrap checks failed</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原因：虚拟机限制用户的执行内存"><span class="nav-number">4.1.</span> <span class="nav-text">原因：虚拟机限制用户的执行内存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决：-2"><span class="nav-number">4.2.</span> <span class="nav-text">解决：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#step1-修改安全限制配置文件"><span class="nav-number">4.2.1.</span> <span class="nav-text">step1:修改安全限制配置文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#step2-修改系统配置文件"><span class="nav-number">4.2.2.</span> <span class="nav-text">step2:修改系统配置文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#step3-重启"><span class="nav-number">4.2.3.</span> <span class="nav-text">step3:重启</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、org-elasticsearch-bootstrap-StartupException-java-lang-IllegalStateException-failed-to-obtain-node-locks-tried-home-elasticsearch-6-3-0-data-elasticsearch-with-lock-id-0-maybe-these-locations-are-not-writable-or-multiple-nodes-were-started-without-increasing-node-max-local-storage-nodes-was-1"><span class="nav-number">5.</span> <span class="nav-text">五、org.elasticsearch.bootstrap.StartupException: java.lang.IllegalStateException: failed to obtain node locks, tried [[/home/elasticsearch-6.3.0/data/elasticsearch]] with lock id [0]; maybe these locations are not writable or multiple nodes were started without increasing [node.max_local_storage_nodes] (was [1])?</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原因：线程占用"><span class="nav-number">5.1.</span> <span class="nav-text">原因：线程占用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决：重新启动"><span class="nav-number">5.2.</span> <span class="nav-text">解决：重新启动</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#step1-杀死elasticsearch线程"><span class="nav-number">5.2.1.</span> <span class="nav-text">step1:杀死elasticsearch线程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#step2-重启-1"><span class="nav-number">5.2.2.</span> <span class="nav-text">step2: 重启</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#六、验证"><span class="nav-number">6.</span> <span class="nav-text">六、验证</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、后台启动"><span class="nav-number">6.1.</span> <span class="nav-text">1、后台启动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、curl验证"><span class="nav-number">6.2.</span> <span class="nav-text">2、curl验证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、网站验证"><span class="nav-number">6.3.</span> <span class="nav-text">3、网站验证</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yujiang zheng</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

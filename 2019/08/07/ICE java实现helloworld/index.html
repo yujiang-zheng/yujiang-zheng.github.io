@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="CSDN迁移,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="版权声明：本文为博主原创文章，遵循 CC 4.0 by-sa 版权协议，转载请附上原文出处链接和本声明。  本文链接：https://blog.csdn.net/qq_22211217/article/details/98751745       目录  一 前言  二 实现  1、目录结构  2、java实现  3、spring实现（spring启动ice）  三 项目git https:">
+<meta name="keywords" content="CSDN迁移">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ICE java实现helloworld">
+<meta property="og:url" content="http://HandsomeMars.github.io/2019/08/07/ICE java实现helloworld/index.html">
+<meta property="og:site_name" content="yujiang-zheng&#39;s blog">
+<meta property="og:description" content="版权声明：本文为博主原创文章，遵循 CC 4.0 by-sa 版权协议，转载请附上原文出处链接和本声明。  本文链接：https://blog.csdn.net/qq_22211217/article/details/98751745       目录  一 前言  二 实现  1、目录结构  2、java实现  3、spring实现（spring启动ice）  三 项目git https:">
+<meta property="og:locale" content="zh">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2019080715521381.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190807155433714.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190807155445911.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190807162155420.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3,size_16,color_FFFFFF,t_70">
+<meta property="og:updated_time" content="2019-08-21T14:03:50.455Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ICE java实现helloworld">
+<meta name="twitter:description" content="版权声明：本文为博主原创文章，遵循 CC 4.0 by-sa 版权协议，转载请附上原文出处链接和本声明。  本文链接：https://blog.csdn.net/qq_22211217/article/details/98751745       目录  一 前言  二 实现  1、目录结构  2、java实现  3、spring实现（spring启动ice）  三 项目git https:">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/2019080715521381.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://HandsomeMars.github.io/2019/08/07/ICE java实现helloworld/">
+
+
+
+
+
+  <title>ICE java实现helloworld | yujiang-zheng's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">yujiang-zheng's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://HandsomeMars.github.io/2019/08/07/ICE java实现helloworld/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yujiang zheng">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yujiang-zheng's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ICE java实现helloworld</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-07T16:26:20+08:00">
+                2019-08-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p> <a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener"> </a> 版权声明：本文为博主原创文章，遵循<a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener"> CC 4.0 by-sa </a>版权协议，转载请附上原文出处链接和本声明。  本文链接：<a href="https://blog.csdn.net/qq_22211217/article/details/98751745" target="_blank" rel="noopener">https://blog.csdn.net/qq_22211217/article/details/98751745</a>   </p>
+<p>   <strong>目录</strong></p>
+<p> <a href="#main-toc">一 前言</a></p>
+<p> <a href="#%E4%BA%8C%20%E5%AE%9E%E7%8E%B0">二 实现</a></p>
+<p> <a href="#1%E3%80%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84">1、目录结构</a></p>
+<p> <a href="#2%E3%80%81java%E5%AE%9E%E7%8E%B0">2、java实现</a></p>
+<p> <a href="#3%E3%80%81spring%E5%AE%9E%E7%8E%B0%EF%BC%88spring%E5%90%AF%E5%8A%A8ice%EF%BC%89">3、spring实现（spring启动ice）</a></p>
+<p> <a href="#%E5%9B%9B%20%E9%A1%B9%E7%9B%AEgit%C2%A0%C2%A0https%3A%2F%2Fgithub.com%2FHandsomeMars%2Fspringboot-ice-demo">三 项目git https://github.com/HandsomeMars/springboot-ice-demo</a></p>
+<hr>
+<h2 id="一-前言"><a href="#一-前言" class="headerlink" title="一 前言"></a><strong>一 前言</strong></h2><p> <em>1、基于上篇slice2java编译，本文接着使用slice2java实现简单的客户端和服务端</em></p>
+<p> <em>2、本文列举两种实现：</em></p>
+<ul>
+<li>java main方法调用 </li>
+<li>结合spring IOC容器管理 <h2 id="二-实现"><a href="#二-实现" class="headerlink" title="二 实现"></a>二 实现</h2></li>
+</ul>
+<h3 id="1、目录结构"><a href="#1、目录结构" class="headerlink" title="1、目录结构"></a><em>1、目录结构</em></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"> src</span><br><span class="line">├─main</span><br><span class="line">│  ├─java</span><br><span class="line">│  │  ├─com</span><br><span class="line">│  │  │  └─zyj</span><br><span class="line">│  │  │      │  SpringbootIceApplication.java</span><br><span class="line">│  │  │      │</span><br><span class="line">│  │  │      ├─ice</span><br><span class="line">│  │  │      │  ├─java     ##java实现</span><br><span class="line">│  │  │      │  │  ├─client</span><br><span class="line">│  │  │      │  │  │      IceClient.java</span><br><span class="line">│  │  │      │  │  │</span><br><span class="line">│  │  │      │  │  └─server</span><br><span class="line">│  │  │      │  │          HelloServant.java</span><br><span class="line">│  │  │      │  │          IceService.java</span><br><span class="line">│  │  │      │  │</span><br><span class="line">│  │  │      │  └─spring   ##spring结合</span><br><span class="line">│  │  │      │      ├─client</span><br><span class="line">│  │  │      │      │      IceClient.java</span><br><span class="line">│  │  │      │      │</span><br><span class="line">│  │  │      │      └─server</span><br><span class="line">│  │  │      │              HelloServant.java</span><br><span class="line">│  │  │      │              IceService.java</span><br><span class="line">│  │  │      │</span><br><span class="line">│  │  │      └─util</span><br><span class="line">│  │  │              SpringContextUtil.java</span><br><span class="line">│  │  │</span><br><span class="line">│  │  └─slice2java        ##slice生成文件</span><br><span class="line">│  │          Callback_HelloI_hello.java</span><br><span class="line">│  │          HelloI.java</span><br><span class="line">│  │          HelloIHolder.java</span><br><span class="line">│  │          HelloIPrx.java</span><br><span class="line">│  │          HelloIPrxHelper.java</span><br><span class="line">│  │          HelloIPrxHolder.java</span><br><span class="line">│  │          _Callback_HelloI_hello.java</span><br><span class="line">│  │          _HelloIDisp.java</span><br><span class="line">│  │          _HelloIOperations.java</span><br><span class="line">│  │          _HelloIOperationsNC.java</span><br><span class="line">│  │</span><br><span class="line">│  └─resources</span><br><span class="line">│      │  application.properties</span><br><span class="line">│      │</span><br><span class="line">│      └─slice</span><br><span class="line">│              slice.bat</span><br><span class="line">│              test.ice</span><br><span class="line">│</span><br><span class="line">└─test</span><br><span class="line">    └─java</span><br><span class="line">        └─com</span><br><span class="line">            └─zyj</span><br><span class="line">                    SpringbootIceApplicationTests.java</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="2、java实现"><a href="#2、java实现" class="headerlink" title="2、java实现"></a><em>2、java实现</em></h3><p> <strong><em>step1: HelloServant 实现服务端 _xxxDisp抽象类</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"> package com.zyj.ice.java.server;</span><br><span class="line"></span><br><span class="line">import Ice.Current;</span><br><span class="line">import Ice.StringHolder;</span><br><span class="line">import slice2java._HelloIDisp;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @author by zyj</span><br><span class="line"> * @version V1.0</span><br><span class="line"> * @Description:</span><br><span class="line"> * @Date 2019/8/6 21:13</span><br><span class="line"> */</span><br><span class="line">public class HelloServant extends _HelloIDisp &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public int hello(String instr, StringHolder outstr, Current __current) &#123;</span><br><span class="line">        System.out.println(&quot;server接受：&quot;+instr+&quot; 时间：&quot;+System.currentTimeMillis());</span><br><span class="line">        outstr.value=&quot;hello client&quot;;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> <strong>_setp2:配置server _</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"> package com.zyj.ice.java.server;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @author by zyj</span><br><span class="line"> * @version V1.0</span><br><span class="line"> * @Description:</span><br><span class="line"> * @Date 2019/8/6 21:13</span><br><span class="line"> */</span><br><span class="line">public class IceService &#123;</span><br><span class="line">    /**服务名*/</span><br><span class="line">    private static final String SERVER_NAME=&quot;Hello&quot;;</span><br><span class="line">    /**服务端点*/</span><br><span class="line">    private static final String SERVER_ENDPOINT=&quot;tcp -p 10006&quot;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        //获取实现类 SpringContextUtil.getBean(helloServant)</span><br><span class="line">        HelloServant helloServant=new HelloServant();</span><br><span class="line"></span><br><span class="line">        //ice通信器</span><br><span class="line">        Ice.Communicator communicator = null;</span><br><span class="line">        try &#123;</span><br><span class="line">            //初始化ice通信器communicator,可以使用args传入一下ice初始化的参数如超时时间，线程池大小等</span><br><span class="line">            communicator = Ice.Util.initialize(args);</span><br><span class="line"></span><br><span class="line">            //创建一个名为queryEmployeeAdapter的适配器并且默认使用tcp协议  服务部署在10.4.30.81机器上 服务开启10006监听端口</span><br><span class="line"></span><br><span class="line">            Ice.ObjectAdapter adapter = communicator.createObjectAdapterWithEndpoints(SERVER_NAME,SERVER_ENDPOINT);</span><br><span class="line"></span><br><span class="line">            // 将servant与ice对象标识符建立映射关系，并添加到ice对象适配器中</span><br><span class="line">            adapter.add(helloServant, Ice.Util.stringToIdentity(SERVER_NAME));</span><br><span class="line"></span><br><span class="line">            // 激活对象适配器</span><br><span class="line">            adapter.activate();</span><br><span class="line"></span><br><span class="line">            System.out.println(&quot;服务启动&quot;);</span><br><span class="line">            // 服务在退出之前一直保持监听状态</span><br><span class="line">            communicator.waitForShutdown();</span><br><span class="line"></span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; finally&#123;</span><br><span class="line">            //异常销毁通信器</span><br><span class="line">            if(communicator != null)&#123;</span><br><span class="line">                communicator.destroy();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> <strong><em>step3:IceClient 使用 xxxPrxHelper 获取 xxxPrx</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"> package com.zyj.ice.java.client;</span><br><span class="line"></span><br><span class="line">import Ice.StringHolder;</span><br><span class="line">import slice2java.HelloIPrx;</span><br><span class="line">import slice2java.HelloIPrxHelper;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @author by zyj</span><br><span class="line"> * @version V1.0</span><br><span class="line"> * @Description:</span><br><span class="line"> * @Date 2019/8/6 21:13</span><br><span class="line"> */</span><br><span class="line">public class IceClient &#123;</span><br><span class="line"></span><br><span class="line">    /**服务名*/</span><br><span class="line">    private static final String SERVER_NAME=&quot;Hello&quot;;</span><br><span class="line">    /**服务端点*/</span><br><span class="line">    private static final String SERVER_ENDPOINT=&quot;tcp -h 127.0.0.1 -p 10006&quot;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        //ice通信器</span><br><span class="line">        Ice.Communicator communicator = null;</span><br><span class="line">        try &#123;</span><br><span class="line">            //初始化ice通信器communicator,可以使用args传入一下ice初始化的参数如超时时间，线程池大小等</span><br><span class="line">            communicator = Ice.Util.initialize(args);</span><br><span class="line"></span><br><span class="line">            //构建服务端的代理对象  服务端对象标识以 SERVER_NAME:SERVER_ENDPOINT 格式</span><br><span class="line">            Ice.ObjectPrx op = communicator.stringToProxy(SERVER_NAME+&quot;:&quot;+SERVER_ENDPOINT);</span><br><span class="line"></span><br><span class="line">            //检查通用客户端代理op 是不是queryServer对象标识符所关联的ice对象的代理</span><br><span class="line">            HelloIPrx qp = HelloIPrxHelper.checkedCast(op);</span><br><span class="line"></span><br><span class="line">            if(qp == null)&#123;</span><br><span class="line">                throw new Exception(&quot;qp == null&quot;);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            //测试发送信息到户无端</span><br><span class="line">            StringHolder holder=new StringHolder();</span><br><span class="line">            int result = qp.hello(&quot;hello&quot;,holder);</span><br><span class="line"></span><br><span class="line">            // 输出服务端返回结果</span><br><span class="line">            System.out.println(&quot;client接受：&quot;+holder.value+&quot; 时间：&quot;+System.currentTimeMillis());</span><br><span class="line"></span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> <strong><em>step4:启动验证</em></strong></p>
+<p> <em>启动server</em></p>
+<p> <img src="https://img-blog.csdnimg.cn/2019080715521381.png" alt></p>
+<p> _ 启动client_</p>
+<p> <img src="https://img-blog.csdnimg.cn/20190807155433714.png" alt><img src="https://img-blog.csdnimg.cn/20190807155445911.png" alt></p>
+<h3 id="3、spring实现（spring启动ice）"><a href="#3、spring实现（spring启动ice）" class="headerlink" title="3、spring实现（spring启动ice）"></a><em>3、spring实现（spring启动ice）</em></h3><p> <strong><em>step1：改造服务实现类（添加@Service注解）</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"> package com.zyj.ice.spring.server;</span><br><span class="line"></span><br><span class="line">import Ice.Current;</span><br><span class="line">import Ice.StringHolder;</span><br><span class="line">import org.springframework.stereotype.Service;</span><br><span class="line">import slice2java._HelloIDisp;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @author by zyj</span><br><span class="line"> * @version V1.0</span><br><span class="line"> * @Description:</span><br><span class="line"> * @Date 2019/8/6 21:13</span><br><span class="line"> */</span><br><span class="line">@Service</span><br><span class="line">public class HelloServant extends _HelloIDisp &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public int hello(String instr, StringHolder outstr, Current __current) &#123;</span><br><span class="line">        System.out.println(&quot;server接受：&quot;+instr+&quot; 时间：&quot;+System.currentTimeMillis());</span><br><span class="line">        outstr.value=&quot;hello client&quot;;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> <strong>_ step2：改造server 主要防止ice阻塞，所以通过线程处理_</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"> package com.zyj.ice.spring.server;</span><br><span class="line"></span><br><span class="line">import org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line">import org.springframework.stereotype.Service;</span><br><span class="line"></span><br><span class="line">import javax.annotation.PostConstruct;</span><br><span class="line">import java.util.concurrent.LinkedBlockingQueue;</span><br><span class="line">import java.util.concurrent.ThreadPoolExecutor;</span><br><span class="line">import java.util.concurrent.TimeUnit;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @author by zyj</span><br><span class="line"> * @version V1.0</span><br><span class="line"> * @Description:</span><br><span class="line"> * @Date 2019/8/6 21:13</span><br><span class="line"> */</span><br><span class="line">@Service</span><br><span class="line">public class IceService implements Runnable&#123;</span><br><span class="line"></span><br><span class="line">    /**服务名*/</span><br><span class="line">    private static final String SERVER_NAME=&quot;Hello&quot;;</span><br><span class="line">    /**服务端点*/</span><br><span class="line">    private static final String SERVER_ENDPOINT=&quot;tcp -p 10006&quot;;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private HelloServant helloServant;</span><br><span class="line"></span><br><span class="line">    @PostConstruct</span><br><span class="line">    private void startIceServer() &#123;</span><br><span class="line">        //构造线程池启动当前任务</span><br><span class="line">        LinkedBlockingQueue&lt;Runnable&gt; runnableList=new LinkedBlockingQueue&lt;Runnable&gt;();</span><br><span class="line">        ThreadPoolExecutor threadPoolExecutor= new ThreadPoolExecutor(100,100,1L, TimeUnit.SECONDS,runnableList);</span><br><span class="line">        threadPoolExecutor.execute(this);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void run() &#123;</span><br><span class="line">        //ice通信器</span><br><span class="line">        Ice.Communicator communicator = null;</span><br><span class="line">        try &#123;</span><br><span class="line">            //初始化ice通信器communicator,可以使用args传入一下ice初始化的参数如超时时间，线程池大小等</span><br><span class="line">            communicator = Ice.Util.initialize();</span><br><span class="line"></span><br><span class="line">            //创建一个名为queryEmployeeAdapter的适配器并且默认使用tcp协议  服务部署在10.4.30.81机器上 服务开启10006监听端口</span><br><span class="line"></span><br><span class="line">            Ice.ObjectAdapter adapter = communicator.createObjectAdapterWithEndpoints(SERVER_NAME,SERVER_ENDPOINT);</span><br><span class="line"></span><br><span class="line">            // 将servant与ice对象标识符建立映射关系，并添加到ice对象适配器中</span><br><span class="line">            adapter.add(helloServant, Ice.Util.stringToIdentity(SERVER_NAME));</span><br><span class="line"></span><br><span class="line">            // 激活对象适配器</span><br><span class="line">            adapter.activate();</span><br><span class="line"></span><br><span class="line">            System.out.println(&quot;服务启动&quot;);</span><br><span class="line">            // 服务在退出之前一直保持监听状态</span><br><span class="line">            communicator.waitForShutdown();</span><br><span class="line"></span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; finally&#123;</span><br><span class="line">            //异常销毁通信器</span><br><span class="line">            if(communicator != null)&#123;</span><br><span class="line">                communicator.destroy();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> <strong><em>step3：改造客户端（客户端连接服务端后,可以保持服务端xxxPrx对象持续调用）</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"> package com.zyj.ice.spring.client;</span><br><span class="line"></span><br><span class="line">import Ice.StringHolder;</span><br><span class="line">import org.springframework.stereotype.Service;</span><br><span class="line">import slice2java.HelloIPrx;</span><br><span class="line">import slice2java.HelloIPrxHelper;</span><br><span class="line"></span><br><span class="line">import javax.annotation.PostConstruct;</span><br><span class="line">import java.util.concurrent.LinkedBlockingQueue;</span><br><span class="line">import java.util.concurrent.ThreadPoolExecutor;</span><br><span class="line">import java.util.concurrent.TimeUnit;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @author by zyj</span><br><span class="line"> * @version V1.0</span><br><span class="line"> * @Description:</span><br><span class="line"> * @Date 2019/8/6 21:13</span><br><span class="line"> */</span><br><span class="line">@Service</span><br><span class="line">public class IceClient implements Runnable&#123;</span><br><span class="line"></span><br><span class="line">    /**服务名*/</span><br><span class="line">    private static final String SERVER_NAME=&quot;Hello&quot;;</span><br><span class="line">    /**服务端点*/</span><br><span class="line">    private static final String SERVER_ENDPOINT=&quot;tcp -h 127.0.0.1 -p 10006&quot;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @PostConstruct</span><br><span class="line">    private void startIceClient() &#123;</span><br><span class="line">        //构造线程启动客户端</span><br><span class="line">        LinkedBlockingQueue&lt;Runnable&gt; runnableList=new LinkedBlockingQueue&lt;Runnable&gt;();</span><br><span class="line">        ThreadPoolExecutor threadPoolExecutor= new ThreadPoolExecutor(100,100,1L, TimeUnit.SECONDS,runnableList);</span><br><span class="line">        threadPoolExecutor.execute(this);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void run() &#123;</span><br><span class="line">        //ice通信器</span><br><span class="line">        Ice.Communicator communicator = null;</span><br><span class="line">        try &#123;</span><br><span class="line">            //初始化ice通信器communicator,可以使用args传入一下ice初始化的参数如超时时间，线程池大小等</span><br><span class="line">            communicator = Ice.Util.initialize();</span><br><span class="line"></span><br><span class="line">            //构建服务端的代理对象  服务端对象标识以 SERVER_NAME:SERVER_ENDPOINT 格式</span><br><span class="line">            Ice.ObjectPrx op = communicator.stringToProxy(SERVER_NAME+&quot;:&quot;+SERVER_ENDPOINT);</span><br><span class="line"></span><br><span class="line">            //检查通用客户端代理op 是不是queryServer对象标识符所关联的ice对象的代理</span><br><span class="line">            HelloIPrx qp = HelloIPrxHelper.checkedCast(op);</span><br><span class="line"></span><br><span class="line">            if(qp == null)&#123;</span><br><span class="line">                throw new Exception(&quot;qp == null&quot;);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            //测试发送信息到户无端</span><br><span class="line">            StringHolder holder=new StringHolder();</span><br><span class="line">            int result = qp.hello(&quot;hello&quot;,holder);</span><br><span class="line"></span><br><span class="line">            // 输出服务端返回结果</span><br><span class="line">            System.out.println(&quot;client请求结果：&quot;+holder.value+&quot; 时间：&quot;+System.currentTimeMillis());</span><br><span class="line"></span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> <strong><em>step4 启动</em></strong></p>
+<p> <img src="https://img-blog.csdnimg.cn/20190807162155420.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3,size_16,color_FFFFFF,t_70" alt></p>
+<h2 id="三-项目git-https-github-com-HandsomeMars-springboot-ice-demo"><a href="#三-项目git-https-github-com-HandsomeMars-springboot-ice-demo" class="headerlink" title="三 项目git https://github.com/HandsomeMars/springboot-ice-demo"></a>三 项目git <a href="https://github.com/HandsomeMars/springboot-ice-demo" target="_blank" rel="noopener">https://github.com/HandsomeMars/springboot-ice-demo</a></h2><p> <strong><em><a href="https://github.com/HandsomeMars/springboot-ice-demo" target="_blank" rel="noopener">https://github.com/HandsomeMars/springboot-ice-demo</a></em></strong></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CSDN迁移/" rel="tag"># CSDN迁移</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/07/ICE插件 编译slice2java/" rel="next" title="ICE插件 编译slice2java">
+                <i class="fa fa-chevron-left"></i> ICE插件 编译slice2java
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">yujiang zheng</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-前言"><span class="nav-number">1.</span> <span class="nav-text">一 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二-实现"><span class="nav-number">2.</span> <span class="nav-text">二 实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、目录结构"><span class="nav-number">2.1.</span> <span class="nav-text">1、目录结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、java实现"><span class="nav-number">2.2.</span> <span class="nav-text">2、java实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、spring实现（spring启动ice）"><span class="nav-number">2.3.</span> <span class="nav-text">3、spring实现（spring启动ice）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三-项目git-https-github-com-HandsomeMars-springboot-ice-demo"><span class="nav-number">3.</span> <span class="nav-text">三 项目git https://github.com/HandsomeMars/springboot-ice-demo</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yujiang zheng</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
