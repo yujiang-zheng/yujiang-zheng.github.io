@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          ICE插件 编译slice2java - undefined
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2019/08/07/ICE插件 编译slice2java/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#CSDN迁移" title="CSDN迁移">CSDN迁移</a>
+                            
+                        </div>
+                        <h1>ICE插件 编译slice2java</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by John Doe on
+                            2019-08-07
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Hexo</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p> <a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener"> </a> 版权声明：本文为博主原创文章，遵循<a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener"> CC 4.0 by-sa </a>版权协议，转载请附上原文出处链接和本声明。  本文链接：<a href="https://blog.csdn.net/qq_22211217/article/details/98743742" target="_blank" rel="noopener">https://blog.csdn.net/qq_22211217/article/details/98743742</a>   </p>
+<p>   <strong>目录</strong></p>
+<p> <a href="#%E4%B8%80%C2%A0%20%E5%89%8D%E8%A8%80">一 前言</a></p>
+<p> <a href="#%E4%BA%8C%20%E6%8F%92%E4%BB%B6%E5%AE%9E%E7%8E%B0">二 插件实现</a></p>
+<p> <a href="#%E4%B8%89%20%E5%91%BD%E4%BB%A4%E5%AE%9E%E7%8E%B0">三 命令实现</a></p>
+<p> <a href="#%C2%A0%E5%9B%9B%20%E9%A1%B9%E7%9B%AEgit%C2%A0https%3A%2F%2Fgithub.com%2FHandsomeMars%2Fspringboot-ice-demo"> 四 项目git https://github.com/HandsomeMars/springboot-ice-demo</a></p>
+<hr>
+<h2 id="一-前言"><a href="#一-前言" class="headerlink" title="一 前言"></a>一 前言</h2><p> <em>1、ICE使用slice文件经定义协议文档，针对不同语言进行编译实现，本文阐述如何将slice文件编译为java类</em></p>
+<p> <em>2、ICE编译slice文件主要使用 slice2java命令，本文提供两种实现：</em></p>
+<ul>
+<li><p>maven-plugin（idea） </p>
+</li>
+<li><p>bat（需要安装ice和配置环境变量）<a href="https://blog.csdn.net/qq_22211217/article/details/89200417" target="_blank" rel="noopener">windows配置ICE环境变量</a> </p>
+<h2 id="二-插件实现"><a href="#二-插件实现" class="headerlink" title="二 插件实现"></a>二 插件实现</h2><p><strong><em>1、slice文件</em></strong></p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> module slice2java</span><br><span class="line">&#123;</span><br><span class="line"> interface HelloI</span><br><span class="line"> &#123;</span><br><span class="line">  int  hello(string instr,out string outstr);</span><br><span class="line"> &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p> <strong><em>2、文件目录</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"> src</span><br><span class="line">├─main</span><br><span class="line">│  ├─java</span><br><span class="line">│  │  ├─.depend ##插件生成.depend文件 防止重复生成</span><br><span class="line">│  │  └─slice2java ##对应slice文件 module（包名） 下面为接口生成java代码</span><br><span class="line">│  │              Callback_HelloI_hello.java</span><br><span class="line">│  │              HelloI.java</span><br><span class="line">│  │              HelloIHolder.java</span><br><span class="line">│  │              HelloIPrx.java</span><br><span class="line">│  │              HelloIPrxHelper.java</span><br><span class="line">│  │              HelloIPrxHolder.java</span><br><span class="line">│  │              _Callback_HelloI_hello.java</span><br><span class="line">│  │              _HelloIDisp.java</span><br><span class="line">│  │              _HelloIOperations.java</span><br><span class="line">│  │              _HelloIOperationsNC.java</span><br><span class="line">│  │</span><br><span class="line">│  └─resources</span><br><span class="line">│      └─slice</span><br><span class="line">│              test.ice</span><br><span class="line">│</span><br><span class="line">└─test</span><br><span class="line">    └─java</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> slice文件放置为 src/main/resource/slice</span><br><span class="line">silce2java文件放置为 src/main/java/</span><br><span class="line"></span><br><span class="line">##slice2java文件必须放置src/main/java/ 否则生成的java文件包名出错</span><br><span class="line">对应插件配置如下</span><br></pre></td></tr></table></figure>
+
+<p> <strong><em>3、pom文件插件配置</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&lt;build&gt;</span><br><span class="line">      &lt;plugins&gt;</span><br><span class="line">          &lt;plugin&gt;</span><br><span class="line">              &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">              &lt;artifactId&gt;maven-antrun-plugin&lt;/artifactId&gt;</span><br><span class="line">              &lt;version&gt;1.8&lt;/version&gt;</span><br><span class="line">              &lt;executions&gt;</span><br><span class="line">                  &lt;execution&gt;</span><br><span class="line">                      &lt;id&gt;default-cli&lt;/id&gt;</span><br><span class="line">                      &lt;phase&gt;generate-sources&lt;/phase&gt;</span><br><span class="line">                      &lt;configuration&gt;</span><br><span class="line">                          &lt;target name=&quot;slice2java&quot;&gt;</span><br><span class="line">                              &lt;taskdef name=&quot;slice2java&quot; classname=&quot;Slice2JavaTask&quot;</span><br><span class="line">                                       classpathref=&quot;maven.plugin.classpath&quot;/&gt;</span><br><span class="line">                              &lt;!--slice2java路径--&gt;</span><br><span class="line">                              &lt;slice2java outputdir=&quot;src/main/java/&quot;&gt;</span><br><span class="line">                                  &lt;!--slice文件列表 输入路径--&gt;</span><br><span class="line">                                  &lt;fileset dir=&quot;src/main/resources/slice&quot; includes=&quot;**/*.ice&quot;/&gt;</span><br><span class="line">                                  &lt;!--&lt;includepath&gt;--&gt;</span><br><span class="line">                                  &lt;!--&lt;pathelement path=&quot;src/main/java/com/zyj/ice/slice&quot;/&gt;--&gt;</span><br><span class="line">                                  &lt;!--&lt;/includepath&gt;--&gt;</span><br><span class="line">                              &lt;/slice2java&gt;</span><br><span class="line">                          &lt;/target&gt;</span><br><span class="line">                      &lt;/configuration&gt;</span><br><span class="line">                      &lt;goals&gt;</span><br><span class="line">                          &lt;goal&gt;run&lt;/goal&gt;</span><br><span class="line">                      &lt;/goals&gt;</span><br><span class="line">                  &lt;/execution&gt;</span><br><span class="line"></span><br><span class="line">              &lt;/executions&gt;</span><br><span class="line">              &lt;dependencies&gt;</span><br><span class="line">                  &lt;!-- https://mvnrepository.com/artifact/com.zeroc/ant-ice --&gt;</span><br><span class="line">                  &lt;dependency&gt;</span><br><span class="line">                      &lt;groupId&gt;com.zeroc&lt;/groupId&gt;</span><br><span class="line">                      &lt;artifactId&gt;ant-ice&lt;/artifactId&gt;</span><br><span class="line">                      &lt;version&gt;4.1.0&lt;/version&gt;</span><br><span class="line">                  &lt;/dependency&gt;</span><br><span class="line">              &lt;/dependencies&gt;</span><br><span class="line">          &lt;/plugin&gt;</span><br><span class="line">      &lt;/plugins&gt;</span><br><span class="line">  &lt;/build&gt;</span><br></pre></td></tr></table></figure>
+
+<p> <em>*<em>4、配置结果 *</em></em></p>
+<p> <img src="https://img-blog.csdnimg.cn/20190807144058632.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3,size_16,color_FFFFFF,t_70" alt> </p>
+<p> <em>*<em>5、点击plugin -》antrun:run-》刷新目录，slice2java生成代码 *</em></em></p>
+<p> <img src="https://img-blog.csdnimg.cn/20190807150900655.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3,size_16,color_FFFFFF,t_70" alt></p>
+<h2 id="三-命令实现"><a href="#三-命令实现" class="headerlink" title="三 命令实现"></a>三 命令实现</h2><p> <strong><em>1、ice环境搭建</em></strong></p>
+<p> <a href="https://blog.csdn.net/qq_22211217/article/details/89200417" target="_blank" rel="noopener">windows配置ICE环境变量</a></p>
+<p> <strong><em>2、bat文件</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"> @echo off</span><br><span class="line">echo ********************* slice2java **************************</span><br><span class="line">set  javaFile_des=..\..\java\</span><br><span class="line"></span><br><span class="line">echo rd /s /Q %javaFile_des%</span><br><span class="line">md %javaFile_des%</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">for /R ./ %%s in (*.ice) do (</span><br><span class="line">	slice2java --output-dir %javaFile_des% -I. %%s</span><br><span class="line">	echo %%s </span><br><span class="line">) </span><br><span class="line">pause</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"> ############################命令简单注释##########################</span><br><span class="line"></span><br><span class="line">set  javaFile_des=..\..\java\ </span><br><span class="line">## 设置java输出路径  相对路径 ..\命令环境上级 ..\..\命令环境上上级</span><br><span class="line"></span><br><span class="line">md %javaFile_des%</span><br><span class="line">## md 创建输出文件夹   即src\mian\java\</span><br><span class="line"></span><br><span class="line">for /R ./ %%s in (*.ice) do (</span><br><span class="line">	slice2java --output-dir %javaFile_des% -I. %%s</span><br><span class="line">	echo %%s </span><br><span class="line">) </span><br><span class="line">## for循环读取 </span><br><span class="line">##./当前目录下 </span><br><span class="line">##.ice文件  </span><br><span class="line">##slice2java 编译命令 还有slice2ccp 等</span><br><span class="line">##--output-dir指定输出目录  </span><br><span class="line">##-I忽略警告</span><br><span class="line">############################命令简单注释##########################</span><br></pre></td></tr></table></figure>
+
+<p> <em>*<em>3、目录结构 *</em></em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"> ├─main</span><br><span class="line">│  ├─java</span><br><span class="line">│  │  └─slice2java  ##对应slice文件 module（包名） 下面为接口生成java代码</span><br><span class="line">│  │              Callback_HelloI_hello.java</span><br><span class="line">│  │              HelloI.java</span><br><span class="line">│  │              HelloIHolder.java</span><br><span class="line">│  │              HelloIPrx.java</span><br><span class="line">│  │              HelloIPrxHelper.java</span><br><span class="line">│  │              HelloIPrxHolder.java</span><br><span class="line">│  │              _Callback_HelloI_hello.java</span><br><span class="line">│  │              _HelloIDisp.java</span><br><span class="line">│  │              _HelloIOperations.java</span><br><span class="line">│  │              _HelloIOperationsNC.java</span><br><span class="line">│  │</span><br><span class="line">│  └─resources</span><br><span class="line">│      └─slice</span><br><span class="line">│              slice.bat  ##批处理文件</span><br><span class="line">│              test.ice</span><br><span class="line">│</span><br><span class="line">└─test</span><br><span class="line">    └─java</span><br></pre></td></tr></table></figure>
+
+<p> <em>*<em>4、运行bat *</em></em></p>
+<p> <img src="https://img-blog.csdnimg.cn/20190807151004785.png" alt></p>
+<h2 id="四-项目git-https-github-com-HandsomeMars-springboot-ice-demo"><a href="#四-项目git-https-github-com-HandsomeMars-springboot-ice-demo" class="headerlink" title="四 项目git https://github.com/HandsomeMars/springboot-ice-demo"></a>四 项目git <a href="https://github.com/HandsomeMars/springboot-ice-demo" target="_blank" rel="noopener">https://github.com/HandsomeMars/springboot-ice-demo</a></h2><p> <a href="https://github.com/HandsomeMars/springboot-ice-demo" target="_blank" rel="noopener">https://github.com/HandsomeMars/springboot-ice-demo</a></p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2019/08/07/ICE java实现helloworld/" data-toggle="tooltip" data-placement="top" title="ICE java实现helloworld">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2019/07/25/swagger离线文档导出html（maven插件版）/" data-toggle="tooltip" data-placement="top" title="swagger离线文档导出html（maven插件版）">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; John Doe 2019 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://beantech.org">BeanTech</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=YenYuHsuan&repo=hexo-theme-beantech&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="http://yoursite.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

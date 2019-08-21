@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          swagger离线文档导出html（maven插件版） - undefined
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2019/07/25/swagger离线文档导出html（maven插件版）/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#CSDN迁移" title="CSDN迁移">CSDN迁移</a>
+                            
+                        </div>
+                        <h1>swagger离线文档导出html（maven插件版）</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by John Doe on
+                            2019-07-25
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Hexo</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p> <a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener"> </a> 版权声明：本文为博主原创文章，遵循<a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener"> CC 4.0 by-sa </a>版权协议，转载请附上原文出处链接和本声明。  本文链接：<a href="https://blog.csdn.net/qq_22211217/article/details/97301464" target="_blank" rel="noopener">https://blog.csdn.net/qq_22211217/article/details/97301464</a>   </p>
+<p>   <strong>目录</strong></p>
+<p> <a href="#%E4%B8%80%C2%A0%20%E5%89%8D%E8%A8%80">一 前言</a></p>
+<p> <a href="#1%E3%80%81swagger%E4%BD%9C%E4%B8%BA%E5%87%BA%E8%89%B2%E7%9A%84%E5%9C%A8%E7%BA%BFapi%E7%94%9F%E6%88%90%E5%B7%A5%E5%85%B7%EF%BC%8C%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%BB%8F%E5%B8%B8%E4%BD%9C%E4%B8%BA%E5%89%8D%E5%90%8E%E7%AB%AF%E6%8E%A5%E5%8F%A3%E5%AF%B9%E6%8E%A5%E7%9A%84%E5%88%A9%E5%99%A8%E3%80%82">1、swagger作为出色的在线api生成工具，在项目中经常作为前后端接口对接的利器。</a></p>
+<p> <a href="#2%E3%80%81%E6%9C%AC%E6%96%87%E4%B8%8D%E9%98%90%E8%BF%B0swagger%E5%8F%8A%E5%85%B6%E9%85%8D%E7%BD%AE%EF%BC%8C%E9%87%8D%E7%82%B9%E9%98%90%E8%BF%B0%E5%A6%82%E4%BD%95%E5%AF%BC%E5%87%BAswagger%E6%96%87%E6%A1%A3%EF%BC%8C%E6%97%A0%E9%9C%80%E4%BB%A3%E7%A0%81%E7%BC%96%E5%86%99%E3%80%82">2、本文不阐述swagger及其配置，重点阐述如何导出swagger文档，无需代码编写。</a></p>
+<p> <a href="#%E4%BA%8C%20%E5%AE%9E%E7%8E%B0">二 实现</a></p>
+<p> <a href="#1%E3%80%81maven%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE">1、maven插件配置</a></p>
+<p> <a href="#2%E3%80%81%E9%85%8D%E7%BD%AE%E7%BB%93%E6%9E%9C%C2%A0">2、配置结果 </a></p>
+<p> <a href="#3%E3%80%81%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3">3、配置详解</a></p>
+<p> <a href="#4%E3%80%81%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B">4、使用流程</a></p>
+<p> <a href="#5%E3%80%81%E9%A1%B9%E7%9B%AEgithub">5、项目github https://github.com/HandsomeMars/swagger-static-api-demo.git</a></p>
+<p> <a href="#%E4%B8%89%20%E5%8F%82%E8%80%83">三 参考</a></p>
+<p> <a href="#https%3A%2F%2Fgithub.com%2Fasciidoctor%2Fasciidoctor-maven-examples">https://github.com/asciidoctor/asciidoctor-maven-examples</a></p>
+<p> <a href="#https%3A%2F%2Fasciidoctor.org%2Fdocs%2Fasciidoctor-maven-plugin%2F">https://asciidoctor.org/docs/asciidoctor-maven-plugin/</a></p>
+<p> <a href="#http%3A%2F%2Fswagger2markup.github.io%2Fswagger2markup%2F1.3.1%2F">http://swagger2markup.github.io/swagger2markup/1.3.1/</a></p>
+<p> <a href="#https%3A%2F%2Fgithub.com%2FSwagger2Markup%2Fspring-swagger2markup-demo">https://github.com/Swagger2Markup/spring-swagger2markup-demo</a></p>
+<hr>
+<h2 id="一-前言"><a href="#一-前言" class="headerlink" title="一 前言"></a>一 前言</h2><h3 id="1、swagger作为出色的在线api生成工具，在项目中经常作为前后端接口对接的利器。"><a href="#1、swagger作为出色的在线api生成工具，在项目中经常作为前后端接口对接的利器。" class="headerlink" title="1、swagger作为出色的在线api生成工具，在项目中经常作为前后端接口对接的利器。"></a><em>1、swagger作为出色的在线api生成工具，在项目中经常作为前后端接口对接的利器。</em></h3><p> <em>但是：</em></p>
+<ul>
+<li>线上的swagger是不安全的，使用不当会导致垃圾数据、是行走的bug和入侵渠道等。 </li>
+<li>前后端接口文档意在规约与分工，不适宜完全开发swagger代替接口文档 </li>
+<li>但是后期不管是后端接口测试还是前端接口对接实测，又需要维护swagger与接口文档 <em>所以：基于swagger与接口文档同时维护这个需求，有折中方案：</em></li>
+</ul>
+<ul>
+<li>写好swagger接口（定义接口与输入输出），导出离线文档 </li>
+<li>前后端同时开发，最后完成联调 </li>
+<li>如果接口变化，则重新导出离线文档，达到swagger与接口文档同时维护 <h3 id="2、本文不阐述swagger及其配置，重点阐述如何导出swagger文档，无需代码编写。"><a href="#2、本文不阐述swagger及其配置，重点阐述如何导出swagger文档，无需代码编写。" class="headerlink" title="2、本文不阐述swagger及其配置，重点阐述如何导出swagger文档，无需代码编写。"></a><em>2、本文不阐述swagger及其配置，重点阐述如何导出swagger文档，无需代码编写。</em></h3></li>
+</ul>
+<hr>
+<h2 id="二-实现"><a href="#二-实现" class="headerlink" title="二 实现"></a>二 实现</h2><h3 id="1、maven插件配置"><a href="#1、maven插件配置" class="headerlink" title="1、maven插件配置"></a><em>1、maven插件配置</em></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"> &lt;plugin&gt;</span><br><span class="line">	&lt;groupId&gt;io.github.swagger2markup&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;swagger2markup-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;1.3.1&lt;/version&gt;</span><br><span class="line">	&lt;configuration&gt;</span><br><span class="line">		&lt;!---swagger-api-json路径--&gt;</span><br><span class="line">		&lt;swaggerInput&gt;http://ip:port/projectname/v2/api-docs&lt;/swaggerInput&gt;</span><br><span class="line">		&lt;!---swagger-api-转换生成路径--&gt;</span><br><span class="line">		&lt;outputFile&gt;$&#123;project.build.directory&#125;/docs/asciidoc/swagger&lt;/outputFile&gt;</span><br><span class="line">		&lt;!---文档生成配置参数--&gt;</span><br><span class="line">		&lt;config&gt;</span><br><span class="line">			&lt;swagger2markup.outputLanguage&gt;ZH&lt;/swagger2markup.outputLanguage&gt;</span><br><span class="line">			&lt;swagger2markup.generatedExamplesEnabled&gt;true&lt;/swagger2markup.generatedExamplesEnabled&gt;</span><br><span class="line">			&lt;swagger2markup.inlineSchemaEnabled&gt;false&lt;/swagger2markup.inlineSchemaEnabled&gt;</span><br><span class="line">			&lt;swagger2markup.pathsGroupedBy&gt;TAGS&lt;/swagger2markup.pathsGroupedBy&gt;</span><br><span class="line">			&lt;swagger2markup.markupLanguage&gt;ASCIIDOC&lt;/swagger2markup.markupLanguage&gt;</span><br><span class="line">		&lt;/config&gt;</span><br><span class="line">	&lt;/configuration&gt;</span><br><span class="line">&lt;/plugin&gt;</span><br><span class="line">&lt;plugin&gt;</span><br><span class="line">	&lt;groupId&gt;org.asciidoctor&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;asciidoctor-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;1.5.8&lt;/version&gt;</span><br><span class="line">	&lt;configuration&gt;</span><br><span class="line">		&lt;!--asciidoc文件目录--&gt;</span><br><span class="line">		&lt;sourceDirectory&gt;$&#123;project.build.directory&#125;/docs/asciidoc/&lt;/sourceDirectory&gt;</span><br><span class="line">		&lt;!---生成html的路径--&gt;</span><br><span class="line">		&lt;outputDirectory&gt;$&#123;project.build.directory&#125;/docs/html/&lt;/outputDirectory&gt;</span><br><span class="line">		&lt;!---生成文档类型--&gt;</span><br><span class="line">		&lt;backend&gt;html5&lt;/backend&gt;</span><br><span class="line">		&lt;sourceHighlighter&gt;coderay&lt;/sourceHighlighter&gt;</span><br><span class="line">		&lt;attributes&gt;</span><br><span class="line">			&lt;!--导航栏在左--&gt;</span><br><span class="line">			&lt;toc&gt;left&lt;/toc&gt;</span><br><span class="line">			&lt;!--显示层级数--&gt;</span><br><span class="line">			&lt;toclevels&gt;3&lt;/toclevels&gt;</span><br><span class="line">			&lt;!--自动打数字序号--&gt;</span><br><span class="line">			&lt;sectnums&gt;true&lt;/sectnums&gt;</span><br><span class="line">		&lt;/attributes&gt;</span><br><span class="line">	&lt;/configuration&gt;</span><br><span class="line">&lt;/plugin&gt;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="2、配置结果"><a href="#2、配置结果" class="headerlink" title="_2、配置结果 _"></a>_2、配置结果 _</h3><p> <img src="https://img-blog.csdnimg.cn/20190725220432990.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3,size_16,color_FFFFFF,t_70" alt></p>
+<h3 id="3、配置详解"><a href="#3、配置详解" class="headerlink" title="3、配置详解"></a><em>3、配置详解</em></h3><ul>
+<li>swagger2markup配置详解 （常用配置）</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> swagger2markup.markupLanguage=ASCIIDOC       ##MarkDown or ASCIIDOC  </span><br><span class="line">swagger2markup.generatedExamplesEnabled=ture ##是否生成输入输出样例</span><br><span class="line">swagger2markup.outputLanguage=ZH             ##文档输出语言  ZH中文</span><br><span class="line">swagger2markup.inlineSchemaEnabled=false     ##是否启用参数内联</span><br><span class="line">swagger2markup.pathsGroupedBy=TAGS           ##api排序规则  一般用tags排序</span><br></pre></td></tr></table></figure>
+
+<p> （参考官方api）</p>
+<p> <a href="http://swagger2markup.github.io/swagger2markup/1.3.3/#_swagger2markup_properties" target="_blank" rel="noopener">http://swagger2markup.github.io/swagger2markup/1.3.3/#_swagger2markup_properties</a></p>
+<pre><code>名称                                        | 描述                                    | 可能的值                                | 默认          
+----------------------------------------- | ------------------------------------- | ----------------------------------- | ------------ 
+swagger2markup.markupLanguage             | 指定应用于生成文件的标记语言。                       | ASCIIDOC，MARKDOWN，CONFLUENCE_MARKUP | ASCIIDOC    
+swagger2markup.swaggerMarkupLanguage      | 指定Swagger描述中使用的标记语言。                  | ASCIIDOC，MARKDOWN，CONFLUENCE_MARKUP | 降价          
+swagger2markup.pathsGroupedBy             | 指定路径的分组方式                             | AS_IS，TAGS，REGEX                    | AS_IS       
+swagger2markup.outputLanguage             | 指定标签的语言                               | EN，DE，FR，RU                         | EN          
+swagger2markup.lineSeparator              | 指定应使用的行分隔符                            | UNIX，WINDOWS，MAC                    | &amp;lt;系统依赖&amp;gt;
+swagger2markup.generatedExamplesEnabled   | 指定是否应生成HTTP请求和响应示例                    | 真假                                  | 假           
+swagger2markup.flatBodyEnabled            | 可选地将body参数（如果有）与其他参数隔离                | 真假                                  | 假           
+swagger2markup.pathSecuritySectionEnabled | （可选）禁用路径部分的安全性部分                      | 真假                                  | 真正          
+swagger2markup.anchorPrefix               | 如果要将生成的文档包含在全局文档中，可以选择为所有锚点添加前缀以获得唯一性 | 任何字符串                               |             
+swagger2markup.basePathPrefixEnabled      | 将basePath添加到所有路径                      | 真假                                  | 假           
+swagger2markup.headerRegex                | RegEx分组时使用的正则表达式                      | 具有至少一个捕获组的任何有效RegEx模式               |             
+
+
+名称                               | 描述        | 可能的值                 | 默认
+-------------------------------- | --------- | -------------------- | -- 
+swagger2markup.tagOrderBy        | 指定全局标记的顺序 | AS_IS，NATURAL，CUSTOM | 自然
+swagger2markup.operationOrderBy  | 指定路径操作的顺序 | AS_IS，NATURAL，CUSTOM | 自然
+swagger2markup.definitionOrderBy | 指定定义的顺序   | AS_IS，NATURAL，CUSTOM | 自然
+swagger2markup.parameterOrderBy  | 指定操作参数的顺序 | AS_IS，NATURAL，CUSTOM | 自然
+swagger2markup.propertyOrderBy   | 指定定义属性的顺序 | AS_IS，NATURAL，CUSTOM | 自然
+swagger2markup.responseOrderBy   | 指定响应的顺序   | AS_IS，NATURAL，CUSTOM | 自然
+
+
+名称                                 | 描述         | 可能的值  | 默认  
+---------------------------------- | ---------- | ----- | ---- 
+swagger2markup.overviewDocument    | 指定概述文档的文件名 | 任何字符串 | “概览”
+swagger2markup.pathsDocument       | 指定路径文档的文件名 | 任何字符串 | “路径”
+swagger2markup.definitionsDocument | 指定定义文档的文件名 | 任何字符串 | “定义”
+swagger2markup.securityDocument    | 指定安全文档的文件名 | 任何字符串 | “安全”
+
+
+名称                                         | 描述                        | 可能的值       | 默认  
+------------------------------------------ | ------------------------- | ---------- | ---- 
+swagger2markup.separatedDefinitionsEnabled | 除定义文件外，还为每个模型定义创建单独的定义文件  | 真假         | 假   
+swagger2markup.separatedOperationsEnabled  | 除Paths文件外，还为每个操作创建单独的操作文件 | 真假         | 假   
+swagger2markup.separatedOperationsFolder   | 指定定义文件的目标文件夹路径            | 任何有效的文件夹名称 | “操作”
+swagger2markup.separatedDefinitionsFolder  | 指定操作文件的目标文件夹路径            | 任何有效的文件夹名称 | “定义”
+
+
+名称                                                 | 描述                  | 可能的值  | 默认
+-------------------------------------------------- | ------------------- | ----- | -- 
+swagger2markup.interDocumentCrossReferencesEnabled | 在需要时允许使用文档间交叉引用     | 真假    | 假 
+swagger2markup.interDocumentCrossReferencesPrefix  | 为高级用法指定所有文档间交叉引用的前缀 | 任何字符串 |   
+
+
+名称                                 | 描述         | 可能的值 | 默认
+---------------------------------- | ---------- | ---- | -- 
+swagger2markup.inlineSchemaEnabled | 启用内联对象架构支持 | 真假   | 真正
+
+
+名称                                | 描述           | 可能的值                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | 默认
+--------------------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -- 
+swagger2markup.pageBreakLocations | 指定应插入分页符的位置。 | BEFORE_OPERATION，BEFORE_OPERATION_DESCRIPTION，BEFORE_OPERATION_PARAMETERS，BEFORE_OPERATION_RESPONSES，BEFORE_OPERATION_CONSUMES，BEFORE_OPERATION_PRODUCES，BEFORE_OPERATION_EXAMPLE_REQUEST，BEFORE_OPERATION_EXAMPLE_RESPONSE，BEFORE_DEFINITION，AFTER_OPERATION，AFTER_OPERATION_DESCRIPTION，AFTER_OPERATION_PARAMETERS，AFTER_OPERATION_RESPONSES，AFTER_OPERATION_CONSUMES，AFTER_OPERATION_PRODUCES，AFTER_OPERATION_EXAMPLE_REQUEST，AFTER_OPERATION_EXAMPLE_RESPONSE，AFTER_DEFINITION | 空 </code></pre><ul>
+<li>asciidoctor配置详解 （常用配置）</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> #需要转换的asciidoc文件位置</span><br><span class="line">sourceDirectory $&#123;project.build.directory&#125;/docs/asciidoc/</span><br><span class="line">#需要转换后的文件输出位置</span><br><span class="line">outputDirectory $&#123;project.build.directory&#125;/docs/html/</span><br><span class="line">#转换使用的模板</span><br><span class="line">backend html5、html</span><br><span class="line">#模板主题</span><br><span class="line">sourceHighlighter coderay</span><br><span class="line"></span><br><span class="line">#其他配置属性</span><br><span class="line">attributes</span><br><span class="line">#导航栏在左#</span><br><span class="line">toc left</span><br><span class="line">#显示层级数</span><br><span class="line">toclevels 3</span><br><span class="line">#自动打数字序号</span><br><span class="line">sectnums true</span><br><span class="line">		、</span><br></pre></td></tr></table></figure>
+
+<p> （官方api配置） </p>
+<p> <a href="https://github.com/asciidoctor/asciidoctor-maven-plugin/blob/master/README.adoc" target="_blank" rel="noopener">https://github.com/asciidoctor/asciidoctor-maven-plugin/blob/master/README.adoc</a> </p>
+<h3 id="4、使用流程"><a href="#4、使用流程" class="headerlink" title="4、使用流程"></a><em>4、使用流程</em></h3><p> <img src="https://img-blog.csdnimg.cn/20190725222343635.png" alt></p>
+<ul>
+<li>双击swagger2mark插件生成adoc <img src="https://img-blog.csdnimg.cn/20190725222556330.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3,size_16,color_FFFFFF,t_70" alt></li>
+</ul>
+<ul>
+<li>双击 asciidoctor插件生成html <img src="https://img-blog.csdnimg.cn/20190725222653116.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyMjExMjE3,size_16,color_FFFFFF,t_70" alt></li>
+</ul>
+<h3 id="5、项目github-https-github-com-HandsomeMars-swagger-static-api-demo-git"><a href="#5、项目github-https-github-com-HandsomeMars-swagger-static-api-demo-git" class="headerlink" title="5、项目github https://github.com/HandsomeMars/swagger-static-api-demo.git"></a><em>5、项目github <a href="https://github.com/HandsomeMars/swagger-static-api-demo.git" target="_blank" rel="noopener">https://github.com/HandsomeMars/swagger-static-api-demo.git</a></em></h3><p> <a href="https://github.com/HandsomeMars/swagger-static-api-demo.git" target="_blank" rel="noopener">https://github.com/HandsomeMars/swagger-static-api-demo.git</a></p>
+<hr>
+<h1 id="三-参考"><a href="#三-参考" class="headerlink" title="三 参考"></a>三 参考</h1><h3 id="https-github-com-asciidoctor-asciidoctor-maven-examples"><a href="#https-github-com-asciidoctor-asciidoctor-maven-examples" class="headerlink" title="https://github.com/asciidoctor/asciidoctor-maven-examples"></a><em><a href="https://github.com/asciidoctor/asciidoctor-maven-examples" target="_blank" rel="noopener">https://github.com/asciidoctor/asciidoctor-maven-examples</a></em></h3><h3 id="https-asciidoctor-org-docs-asciidoctor-maven-plugin"><a href="#https-asciidoctor-org-docs-asciidoctor-maven-plugin" class="headerlink" title="https://asciidoctor.org/docs/asciidoctor-maven-plugin/"></a><em><a href="https://asciidoctor.org/docs/asciidoctor-maven-plugin/" target="_blank" rel="noopener">https://asciidoctor.org/docs/asciidoctor-maven-plugin/</a></em></h3><h3 id="http-swagger2markup-github-io-swagger2markup-1-3-1"><a href="#http-swagger2markup-github-io-swagger2markup-1-3-1" class="headerlink" title="http://swagger2markup.github.io/swagger2markup/1.3.1/"></a><em><a href="http://swagger2markup.github.io/swagger2markup/1.3.1/" target="_blank" rel="noopener">http://swagger2markup.github.io/swagger2markup/1.3.1/</a></em></h3><h3 id="https-github-com-Swagger2Markup-spring-swagger2markup-demo"><a href="#https-github-com-Swagger2Markup-spring-swagger2markup-demo" class="headerlink" title="https://github.com/Swagger2Markup/spring-swagger2markup-demo"></a><em><a href="https://github.com/Swagger2Markup/spring-swagger2markup-demo" target="_blank" rel="noopener">https://github.com/Swagger2Markup/spring-swagger2markup-demo</a></em></h3>
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2019/08/07/ICE插件 编译slice2java/" data-toggle="tooltip" data-placement="top" title="ICE插件 编译slice2java">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2019/07/06/docker 快速搭建私有镜像仓库registry以及registryUI/" data-toggle="tooltip" data-placement="top" title="docker 快速搭建私有镜像仓库registry以及registryUI">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; John Doe 2019 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://beantech.org">BeanTech</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=YenYuHsuan&repo=hexo-theme-beantech&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="http://yoursite.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
